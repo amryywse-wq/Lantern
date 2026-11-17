@@ -127,6 +127,12 @@ class LanternCLI(cmd.Cmd):
         flags, arguments = par.Parser.parse_command(self, arg)
         df.DataManager.bar(self,arguments, flags)
 
+    #Help
+
+    def do_help(self, arg):
+        for val in flg.help.values():
+            print(val)
+
 
     #Exit
     def do_exit(self,arg):

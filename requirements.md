@@ -7,5 +7,5 @@ matplotlib
 japanizematplotlip(if needed)
 
 if none exist, run :
-
 pip install pandas numpy matplotlib seaborn openpyxl rich
+
