@@ -30,9 +30,13 @@ class LanternCLI(cmd.Cmd):
             if len(flags) > 1 :
                 print("arg 'start' only accept 1 flag at a time")
             else :
-                extraArg = arguments.pop(0)
-                if flags[0] in flg.read_flags:
-                    flg.read_flags[flags[0]](self, arguments, extraArg)
+                if flags[0] == '-h' :
+                    flg.read_flags[flags[0]]('read')
+                else :            
+                    extraArg = arguments.pop(0)
+                    if flags[0] in flg.read_flags:
+                        flg.read_flags[flags[0]](self, arguments, extraArg)
+                
         else :
             df.DataManager.load(self,arguments, None)
             self.dataFrame = True
@@ -92,10 +96,13 @@ class LanternCLI(cmd.Cmd):
             if len(flags) > 1 :
                 print("This command only accept 1 flag at a time")
             else :
-                if flags[0] in flg.calc_flags :
-                    flg.calc_flags[flags[0]](self, arguments, flags[0])
+                if flags[0] == '-h' :
+                    flg.call_help('calc')
                 else :
-                    print(f"could't find {flags[0]} on the command")
+                    if flags[0] in flg.calc_flags :
+                        flg.calc_flags[flags[0]](self, arguments, flags[0])
+                    else :
+                        print(f"could't find {flags[0]} on the command")
 
         else :
             print("This command need 1 flag to proceed ex : calc '-m column_name'")
@@ -110,12 +117,23 @@ class LanternCLI(cmd.Cmd):
     #Switch between df
     def do_switch(self,arg):
         flags, arguments = par.Parser.parse_command(self, arg)
-        df.DataManager.switch(self, arguments)
+        if len(flags) > 0 :
+            if flags[0] == '-h' :
+                flg.switch_flags[flags[0]]('switch')
+        else :
+            df.DataManager.switch(self, arguments)
 
     #Descibe df
     def do_desc(self, arg):
         flags, arguments = par.Parser.parse_command(self, arg)
-        df.DataManager.des(self,arguments)
+        if len(flags) > 0 :
+            if flags[0] == '-h' :
+                flg.desc_flags[flags[0]]('desc')
+            else :
+                print(f"invalid flag {flags[0]}")
+                
+        else :
+            df.DataManager.des(self,arguments)
         
     #Info df
     def do_info(self, arg):
@@ -128,7 +146,6 @@ class LanternCLI(cmd.Cmd):
         df.DataManager.bar(self,arguments, flags)
 
     #Help
-
     def do_help(self, arg):
         for val in flg.help.values():
             print(val)

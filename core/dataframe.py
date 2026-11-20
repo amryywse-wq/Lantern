@@ -182,7 +182,7 @@ class DataManager:
         if len(flg) == 0 :
             print("Please specify what do you want to calculate by adding : -(command)")
         else :
-            if flg == '-m' :
+            if flg == '-a' :
                 try :
                     avg = self.current_df[args[0]].mean()
                     print(f'Average value of {args[0]} is {avg:.2f}')

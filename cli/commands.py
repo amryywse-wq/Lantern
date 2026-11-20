@@ -1,24 +1,39 @@
 from core import dataframe as df
 
+def call_help(arg) :
+    print(help[arg])
+
 read_flags = {
-    '-h' : df.DataManager.load,
+    '-s' : df.DataManager.load,
+    '-h' : call_help, 
 }
 
 select_flags = {
     '-e' : df.DataManager.select,
+    '-h' : call_help,
 }
 
 calc_flags = {
     '-a' : df.DataManager.calc,
+    '-h' : call_help,
 }
 del_col_flags = {
     '-e' : df.DataManager.delete_col,
+    '-h' : call_help,
 }
 
 show_flags = {
     '-s' : df.DataManager.show,
+    '-h' : call_help,
 }
 
+switch_flags = {
+    '-h' : call_help
+}
+
+desc_flags = {
+    '-h' : call_help,
+}
 help = {
     'read' : "---read--- *read a .csv, .xls, .xslx file as dataframe\n-read (filepath)\n-read -h (header) (filepath) *let you choose header\n",
     'show' : "---show--- *show the current selected dataframe\n-show\n-show -s *let you see saved dataframe\n",
@@ -33,3 +48,6 @@ help = {
     'info' : "---info--- *show dataframe information usinf pandas's info() function\n-info\n",
     'bar' : "---bar--- *create and save bar graph\n-bar (x values) (y values) *for each value you can use (column name)"
  }  
+
+def call_help(arg) :
+    print(help[arg])
